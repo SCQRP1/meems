@@ -1,0 +1,423 @@
+* {
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+html, body {
+    background-color: #222;
+    overflow: hidden;
+}
+
+html, body, canvas {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-image: url("../img/background.jpg");
+	background-repeat: repeat;
+	background-size: cover;
+
+}
+
+div {
+    -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+    -moz-user-select: none; /* mozilla browsers */
+    -khtml-user-select: none; /* webkit (konqueror) browsers */
+    -ms-user-select: none; /* IE10+ */
+}
+
+
+#statistics {
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+#statistics h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+#statistics div {
+    margin-bottom: 20px;
+}
+
+#statistics h4 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#statistics ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#statistics li {
+    font-size: 18px;
+    margin: 5px 0;
+    padding: 10px;
+    background: #ffffff;
+    border-radius: 5px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    color: #444;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#statistics li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#statistics li:nth-child(1) {
+    background-color: #ffd700;
+    font-weight: bold;
+    color: #222;
+}
+
+#statistics li:nth-child(2) {
+    background-color: #c0c0c0;
+    font-weight: bold;
+    color: #222;
+}
+
+#statistics li:nth-child(3) {
+    background-color: #cd7f32;
+    font-weight: bold;
+    color: #222;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #statistics {
+        padding: 15px;
+        font-size: 16px;
+    }
+
+    #statistics h3 {
+        font-size: 20px;
+    }
+
+    #statistics h4 {
+        font-size: 18px;
+    }
+
+    #statistics li {
+        font-size: 16px;
+    }
+}
+
+
+
+#split {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: 100px;
+    height: 100px;
+    padding: 5px;
+    border: none;
+}
+
+#feed {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 100px;
+    height: 100px;
+    padding: 5px;
+    border: none;
+}
+
+#status {
+    position: absolute;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.4);
+    color: #FFF;
+    font-size: 16.1px;
+    top: 10px;
+    right: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#status .title {
+    font-size: 25px;
+}
+
+#status .me {
+    color: #FF8888;
+    font-size: 16.1px;
+}
+
+.chatbox {
+    position: absolute;
+    width: 300px;
+    height: 320px;
+    background: rgba(22, 22, 22, 0.7);
+    bottom: 5px;
+    left: 5px;
+    border-radius: 5px;
+    pointer-events: none;
+}
+
+.chatbox .chat-list {
+    padding: 5px;
+    margin: 0;
+    list-style: none;
+    box-sizing: border-box;
+    height: 285px;
+    overflow: hidden;
+}
+
+.chatbox .chat-list li {
+    padding: 2px;
+    margin: 3px;
+}
+
+.chatbox .chat-list li.me b {
+    color: #ea6153;
+}
+
+.chatbox .chat-list li.friend b {
+    color: #2ecc71;
+}
+
+.chatbox .chat-list li.system {
+    color: #9b59b6;
+    font-style: italic;
+}
+
+.chatbox .chat-list li.system:before {
+    content: "» ";
+}
+
+.chatbox .chat-input {
+    pointer-events: all;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 8px;
+    background: transparent;
+    border: none;
+    border-top: 1px solid #DDD;
+    outline: none;
+}
+
+/* Global container for both menus */
+#menu-container {
+    display: flex;
+    flex-wrap: nowrap; /* Ensure no wrapping */
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    scroll-snap-type: x mandatory; /* Enables swipe on mobile */
+    scroll-behavior: smooth; /* Smooth scrolling */
+}
+
+/* For PC: Horizontal side-by-side display */
+@media (min-width: 768px) {
+    #menu-container {
+        overflow: visible; /* No scrolling */
+        scroll-snap-type: none; /* Disable snap */
+        flex-direction: row; /* Align boxes horizontally */
+        gap: 20px;
+    }
+
+    #startMenu, #statistics {
+        flex: 1 1 50%; /* Adjust widths for equal spacing */
+        max-width: none;
+    }
+}
+
+/* Ensure no horizontal scrollbar on mobile */
+#menu-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Style for individual sections */
+#startMenu, #statistics {
+    flex: 0 0 calc(100% - 40px); /* Take full screen width minus margin on mobile */
+    max-width: 550px; /* Limit the width for larger screens */
+    margin: 20px; /* Add space around boxes */
+    padding: 20px;
+    border-radius: 15px;
+    background: rgb(2,0,36);
+	background: linear-gradient(132deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 52%, rgba(0,212,255,1) 100%);
+    box-sizing: border-box;
+	border: solid 1px #dcdcdc;
+	max-height: 800px;
+}
+
+/* Center the content vertically */
+#menu-container > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#startMenu p {
+    padding: 0;
+    text-align: center;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+#playerNameInput {
+    width: 50%;
+    text-align: center;
+    padding: 10px;
+    border: solid 1px #dcdcdc;
+    transition: box-shadow 0.3s, border 0.3s;
+    box-sizing: border-box;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    margin-bottom: 10px;
+    outline: none;
+	background-color: #09093b;
+	margin-top: 20px;
+	color: #fff;
+}
+
+#playerNameInput:focus, #playerNameInput.focus {
+    border: solid 1px #CCCCCC;
+    box-shadow: 0 0 3px 1px #DDDDDD;
+}
+
+#startButton, #spectateButton, #leaderboardButton {
+    position: relative;
+    margin: auto;
+    margin-top: 10px;
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    font-size: large;
+    color: white;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    background: #2ecc71;
+    border: 0;
+    border-bottom: 2px solid #28be68;
+    cursor: pointer;
+    -webkit-box-shadow: inset 0 -2px #28be68;
+    box-shadow: inset 0 -2px #28be68;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+#spectateButton:active, #spectateButton:hover,
+#leaderboardButton:active, #leaderboardButton:hover,
+#startButton:active, #startButton:hover {
+    top: 1px;
+    background: #55D88B;
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+#settingsButton {
+    position: relative;
+    margin: auto;
+    margin-top: 10px;
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    font-size: large;
+    color: white;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    background: #2ecc71;
+    border: 0;
+    border-bottom: 2px solid #28be68;
+    cursor: pointer;
+    -webkit-box-shadow: inset 0 -2px #28be68;
+    box-shadow: inset 0 -2px #28be68;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+#settingsButton:active, #settingsButton:hover {
+    top: 1px;
+    background: #55D88B;
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+#settings, #startMenuWrapper {
+    -webkit-transition: max-height 1s;
+    -moz-transition: max-height 1s;
+    -ms-transition: max-height 1s;
+    -o-transition: max-height 1s;
+    transition: max-height 1s;
+    overflow: hidden;
+}
+
+#settings {
+    max-height: 0;
+}
+
+#startMenu h3 {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+#startMenu ul {
+    margin: 10px;
+    padding: 10px;
+    margin-top: 0;
+}
+
+#startMenu .input-error {
+    color: red;
+    opacity: 0;
+    font-size : 12px;
+}
+
+#startMenuWrapper {
+    z-index: 2;
+	display: flex;
+    justify-content: center;
+}
+
+#gameAreaWrapper {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+@media only screen  and (min-width : 1224px) {
+#mobile {
+display: none;
+	}
+}
+
+@media only screen  and (max-width : 1224px) {
+#chatbox {
+display: none;
+        }
+}
+
+input [type="image"]:focus{
+ border:none;
+ outline: 1px solid transparent;
+ border-style: none;
+}
+
+*:focus {
+ outline: 1px solid transparent;
+ border-style: none;
+}
